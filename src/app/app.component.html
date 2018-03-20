@@ -1,5 +1,12 @@
 <div>
-  <textarea name="" id="" cols="50" rows="10" #input></textarea>
+  <textarea name="" id="" cols="50" rows="10" #input>Quels sont les avis sur arrow ?</textarea>
   <br>
-  <button (click)="sendRequest(input)">Send</button>
+  <button (click)="sendRequest(input)" [disabled]="requestSent">Send</button>
+</div>
+<hr>
+<div>
+  {{ response }}
+</div>
+<hr>
+<div #displayArea>
 </div>

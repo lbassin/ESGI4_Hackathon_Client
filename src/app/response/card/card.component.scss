@@ -1,0 +1,18 @@
+:host {
+  li {
+    display: inline-block;
+    border: 2px solid green;
+    margin: 4px;
+    padding: 6px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      img {
+        max-width: 150px;
+      }
+    }
+
+  }
+}

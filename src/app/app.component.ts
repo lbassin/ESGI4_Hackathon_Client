@@ -1,6 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ComponentService} from './component.service';
 import {API_URL} from './app.vars';
+import {TextComponent} from './response/text/text.component';
+import {ResponseComponent} from './response/response.component';
+import {CardComponent} from './response/card/card.component';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +13,14 @@ import {API_URL} from './app.vars';
 })
 export class AppComponent implements OnInit {
 
-  headers: {headers: HttpHeaders};
+  headers: { headers: HttpHeaders };
+  protected response: any;
 
-  constructor(private http: HttpClient) {
+  @ViewChild('displayArea', {read: ViewContainerRef}) container;
+
+  protected requestSent = false;
+
+  constructor(private http: HttpClient, private service: ComponentService) {
   }
 
   public ngOnInit(): void {
@@ -23,11 +32,30 @@ export class AppComponent implements OnInit {
     };
   }
 
-  sendRequest(input: HTMLTextAreaElement) {
+  protected sendRequest(input: HTMLTextAreaElement) {
     const data = {question: input.value};
+    this.requestSent = true;
 
-    this.http.post(API_URL, data, this.headers).toPromise().then(response => {
-      console.log(response);
-    });
+    this.http.post(API_URL, data, this.headers).toPromise()
+      .then((response: { type: string, data: any }) => {
+        this.response = JSON.stringify(response);
+        this.addResponse(response);
+        this.requestSent = false;
+      });
+  }
+
+  protected addResponse(response: { type: string, data: any }): void {
+    let component = ResponseComponent;
+
+    switch (response.type) {
+      case 'text':
+        component = TextComponent;
+        break;
+      case 'card':
+        component = CardComponent;
+        break;
+    }
+
+    this.service.addDynamicComponent(this.container, component, response.data);
   }
 }

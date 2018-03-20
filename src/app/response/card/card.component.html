@@ -1,0 +1,11 @@
+<div>
+  {{message}}
+  <ul>
+    <li *ngFor="let card of cards">
+      <div>
+        <p>{{card.title}}</p>
+        <img src="{{card.media}}" alt="">
+      </div>
+    </li>
+  </ul>
+</div>

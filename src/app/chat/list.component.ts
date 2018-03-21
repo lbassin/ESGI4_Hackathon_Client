@@ -1,5 +1,15 @@
-import {animate, Component, OnInit, OnChanges, style, transition, trigger, SimpleChanges, ElementRef, AfterViewInit} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import {
+  animate,
+  Component,
+  OnInit,
+  OnChanges,
+  style,
+  transition,
+  trigger,
+  SimpleChanges,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
 import {MessageService} from '../message-service';
 
 @Component({
@@ -31,9 +41,8 @@ import {MessageService} from '../message-service';
 export class ChatMessageListComponent implements OnInit {
   messages: Array<Object>;
 
-  constructor(private _messageService: MessageService, private elementRef: ElementRef, private sanitizer: DomSanitizer) {
+  constructor(private _messageService: MessageService, private elementRef: ElementRef) {
     this._messageService = _messageService;
-    this.sanitizer = sanitizer;
     this.messages = [];
   }
 
@@ -48,9 +57,7 @@ export class ChatMessageListComponent implements OnInit {
       messageBlock.scrollTo(0, st);
     }
   }
-  safe(value) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(value);
-  }
+
   ngOnInit() {
     this._messageService.messageUpdater.subscribe(
       (message) => {

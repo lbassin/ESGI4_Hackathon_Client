@@ -1,11 +1,15 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable()
 export class MessageService {
   private _listners = new Subject<any>();
   messageList = [];
   messageUpdater: EventEmitter<any> = new EventEmitter();
+
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   showQuestion(text) {
     const message = {sendBy: 'user', type: 'message', textMessage: text};
@@ -24,7 +28,8 @@ export class MessageService {
 
   showVideo(video) {
     const message = {sendBy: 'bot', type: 'video-card', video: video};
-    console.log(message);
+    message.video.media = this.getSafeUrl(message.video.media);
+
     this.update(message);
   }
 
@@ -35,5 +40,9 @@ export class MessageService {
 
   getMessages() {
     return this.messageList;
+  }
+
+  getSafeUrl(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

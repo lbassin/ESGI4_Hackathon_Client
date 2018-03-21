@@ -34,7 +34,7 @@ export class SpeechRecognitionService {
                         }
                         else {
                             term = _.trim(transcript);
-                            console.log("Did you said? -> " + term + " , If not then say something else...");
+                            //console.log("Did you said? -> " + term + " , If not then say something else...");
                         }
                     }
                 }
@@ -52,7 +52,7 @@ export class SpeechRecognitionService {
             };
 
             this.speechRecognition.start();
-            console.log("Say something - We are listening !!!");
+            //console.log("Say something - We are listening !!!");
         });
     }
 

@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
   protected speechData: string;
 
   @ViewChild('displayArea', { read: ViewContainerRef }) container;
+  @ViewChild('button') buttonListen;
+  @ViewChild('send') buttonSend;
+  @ViewChild('input') input;
 
   protected requestSent = false;
 
@@ -32,6 +35,32 @@ export class AppComponent implements OnInit {
         'Authorization': '1'
       })
     };
+
+    this.keepSpeechAlive();
+  }
+
+  protected keepSpeechAlive() {
+    console.log("listening");
+    this.speechRecognitionService.record()
+      .subscribe(
+      (value) => {
+        this.speechRecognitionService.DestroySpeechObject();
+        if (value === "ok djingo") {
+          let msg = new SpeechSynthesisUtterance('Que puis-je faire pour vous ?');
+          window.speechSynthesis.speak(msg);
+          console.log("j'écoute");
+          this.listenRequest(this.input.nativeElement, this.buttonListen.nativeElement, this.buttonSend.nativeElement);
+        } else if ("merci") {
+          let msg = new SpeechSynthesisUtterance('De rien ma gueule');
+          window.speechSynthesis.speak(msg);
+        } else {
+          this.speechData = value;
+          let css = "color: red";
+          console.log("%c %s", css, value);
+          console.log("restarting");
+          this.keepSpeechAlive();
+        }
+      });
   }
 
   protected sendRequest(input: HTMLTextAreaElement, buttonSend: HTMLButtonElement) {
@@ -59,6 +88,8 @@ export class AppComponent implements OnInit {
         break;
     }
 
+    let msg = new SpeechSynthesisUtterance(response.data.message);
+    window.speechSynthesis.speak(msg);
     this.service.addDynamicComponent(this.container, component, response.data);
   }
 
@@ -75,6 +106,8 @@ export class AppComponent implements OnInit {
         buttonSend.style.backgroundColor = "#FF0000";
         this.sendRequest(input, buttonSend);
         button.style.backgroundColor = "#FFF";
+        console.log("restarting after success");
+        this.keepSpeechAlive();
       },
       //errror
       (err) => {

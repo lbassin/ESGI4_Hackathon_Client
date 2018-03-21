@@ -1,6 +1,6 @@
 import {animate, Component, OnInit, OnChanges, style, transition, trigger, SimpleChanges, ElementRef, AfterViewInit} from '@angular/core';
-import {MessageService} from '../Injectables/message-service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {MessageService} from '../message-service';
 
 @Component({
   selector: 'app-chat-list',

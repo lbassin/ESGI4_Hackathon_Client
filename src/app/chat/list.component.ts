@@ -1,7 +1,6 @@
-import {animate, Component, OnInit, style, transition, trigger, ElementRef} from '@angular/core';
-import {MessageService} from '../message-service';
-
-declare var UIkit: any;
+import {animate, Component, OnInit, OnChanges, style, transition, trigger, SimpleChanges, ElementRef, AfterViewInit} from '@angular/core';
+import {MessageService} from '../Injectables/message-service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat-list',
@@ -32,10 +31,10 @@ declare var UIkit: any;
 export class ChatMessageListComponent implements OnInit {
   messages: Array<Object>;
 
-  constructor(private _messageService: MessageService, private elementRef: ElementRef) {
+  constructor(private _messageService: MessageService, private elementRef: ElementRef, private sanitizer: DomSanitizer) {
     this._messageService = _messageService;
+    this.sanitizer = sanitizer;
     this.messages = [];
-    console.log(UIkit);
   }
 
   messagesBlockEventStart(event: any) {
@@ -49,7 +48,9 @@ export class ChatMessageListComponent implements OnInit {
       messageBlock.scrollTo(0, st);
     }
   }
-
+  safe(value) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(value);
+  }
   ngOnInit() {
     this._messageService.messageUpdater.subscribe(
       (message) => {

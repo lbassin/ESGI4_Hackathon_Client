@@ -13,48 +13,65 @@ import {Router} from '@angular/router';
   styleUrls: ['./bot.component.scss']
 })
 export class BotComponent implements OnInit {
-
   headers: { headers: HttpHeaders };
   protected response: any;
-  protected session: string;
-  protected requestSent = false;
   protected speechData: string;
 
-  @ViewChild('displayArea', {read: ViewContainerRef}) container;
+  @ViewChild('displayArea', { read: ViewContainerRef }) container;
+  @ViewChild('button') buttonListen;
+  @ViewChild('send') buttonSend;
+  @ViewChild('input') input;
 
-  constructor(private http: HttpClient,
-              private service: ComponentService,
-              private speechRecognitionService: SpeechRecognitionService,
-              private router: Router) {
+  protected requestSent = false;
+
+  constructor(private http: HttpClient, private service: ComponentService, private speechRecognitionService: SpeechRecognitionService) {
   }
 
   public ngOnInit(): void {
-    let id = this.router.routerState.snapshot.url;
-    if (id[0] === '/') {
-      id = id.slice(1);
-    }
-
     this.headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': id
+        'Authorization': '1'
       })
     };
+
+    this.keepSpeechAlive();
+  }
+
+  protected keepSpeechAlive() {
+    console.log('listening');
+    this.speechRecognitionService.record()
+      .subscribe(
+        (value) => {
+          this.speechRecognitionService.DestroySpeechObject();
+          if (value === 'ok djingo') {
+            const msg = new SpeechSynthesisUtterance('Que puis-je faire pour vous ?');
+            window.speechSynthesis.speak(msg);
+            console.log('j\'écoute');
+            this.listenRequest(this.input.nativeElement, this.buttonListen.nativeElement, this.buttonSend.nativeElement);
+          } else if (value === 'merci') {
+            const msg = new SpeechSynthesisUtterance('De rien ma gueule');
+            window.speechSynthesis.speak(msg);
+            this.keepSpeechAlive();
+          } else {
+            this.speechData = value;
+            const css = 'color: red';
+            console.log('%c %s', css, value);
+            console.log('restarting');
+            this.keepSpeechAlive();
+          }
+        });
   }
 
   protected sendRequest(input: HTMLTextAreaElement, buttonSend: HTMLButtonElement) {
+    const data = { question: input.value };
     this.requestSent = true;
-    const data = {
-      question: input.value,
-      session: this.session,
-    };
 
     this.http.post(API_URL, data, this.headers).toPromise()
-      .then((response: { type: string, data: any, session?: string }) => {
+      .then((response: { type: string, data: any }) => {
         this.response = JSON.stringify(response);
         this.addResponse(response);
         this.requestSent = false;
-        this.session = response.session;
         buttonSend.style.backgroundColor = '#FFF';
       });
   }
@@ -71,6 +88,8 @@ export class BotComponent implements OnInit {
         break;
     }
 
+    const msg = new SpeechSynthesisUtterance(response.data.message);
+    window.speechSynthesis.speak(msg);
     this.service.addDynamicComponent(this.container, component, response.data);
   }
 
@@ -85,6 +104,8 @@ export class BotComponent implements OnInit {
           buttonSend.style.backgroundColor = '#FF0000';
           this.sendRequest(input, buttonSend);
           button.style.backgroundColor = '#FFF';
+          console.log('restarting after success');
+          this.keepSpeechAlive();
         },
         (err) => {
           console.log(err);

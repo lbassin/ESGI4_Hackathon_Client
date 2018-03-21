@@ -1,7 +1,7 @@
 <div>
   <textarea name="" id="" cols="50" rows="10" #input>Quels sont les avis sur arrow ?</textarea>
   <br>
-  <button (click)="sendRequest(input)" [disabled]="requestSent" #send>Send</button>
+  <button (click)="sendRequest(input, button)" [disabled]="requestSent" #send>Send</button>
   <button (click)="listenRequest(input, button, send)" [disabled]="requestSent" #button>Listen</button>
 </div>
 <hr>

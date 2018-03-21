@@ -9,12 +9,18 @@ import {ResponseComponent} from './response/response.component';
 import {SpeechRecognitionService} from './speech-recognition.service';
 import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
+import {ChatComponent} from './chat-input/chat-input.component';
+import {ChatMessageListComponent} from './chat-message-list/chat-message-list.component';
+import {ResponseBlockComponent} from './response-block/response-block.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MessageService} from './Injectables/message-service';
 
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([{path: '**', component: BotComponent}]),
   ],
   declarations: [
@@ -23,10 +29,14 @@ import {AppComponent} from './app.component';
     ResponseComponent,
     TextComponent,
     CardComponent,
+    ChatComponent,
+    ChatMessageListComponent,
+    ResponseBlockComponent,
   ],
   providers: [
     ComponentService,
     SpeechRecognitionService,
+    MessageService,
   ],
   entryComponents: [
     ResponseComponent,

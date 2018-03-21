@@ -35,6 +35,27 @@
       </div>
     </div>
 
-  </div>
+    <div *ngIf="message.sendBy == 'bot' && message.type === 'movie-cards'"  ngClass="cards-slider-container">
+      <div ngClass="cards-slider uk-position-relative uk-visible-toggle uk-light" uk-slider="finite: true">
+        <ul  ngClass="uk-slider-items">
+          <li ngClass="card large" *ngFor="let card of message.cards">
+            <div ngClass="uk-card uk-card-default">
+              <div class="cover">
+                <img src="{{card.video}}" alt="">
+              </div>
+              <p ngClass="title">{{card.name}}</p>
+              <p ngClass="type">{{card.type}}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div *ngIf="message.sendBy == 'bot' && message.type === 'video-card'">
+      <div class="video">
+        <iframe [src]="safe(message.link)" frameborder="0" allowfullscreen width="250" height="150"></iframe>
+      </div>
+    </div>
+    </div>
 </div>
 

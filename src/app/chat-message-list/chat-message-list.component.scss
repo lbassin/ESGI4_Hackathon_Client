@@ -82,6 +82,9 @@
     width: 5px;
   }
 
+  > * {
+    margin-top: 5px;
+  }
   transition: all ease 1.5s;
   min-height: 0;
   position: absolute;
@@ -101,20 +104,27 @@
   }
 
   .bubble{
+    max-width: 80%;
+    padding:5px 20px;
+    border-radius: 20px;
+    color:#fff;
+    font-size: 15px;
+    overflow: hidden;
+    min-width: 30px;
     &.sended{
-      background: #eee;
-      max-width: 80%;
-      padding:5px 20px;
-      border-radius: 20px;
       background: #FF6600;
-      color:#fff;
-      font-size: 15px;
       text-align: right;
       clear:right;
       float:right;
       right: 0;
-      min-width: 30px;
-      overflow: hidden;
+
+    }
+    &.received{
+      background: #343434;
+      text-align: left;
+      clear:left;
+      float:left;
+      left: 0;
     }
     p{
       margin: 0;
@@ -123,15 +133,59 @@
   }
 
   div{
-
+    .cards-slider-container{
+      transition: all ease 0.5s;
+    }
     .cards-slider{
       width: 100%;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      display: block;
+      transform: all ease 0.2s;
       .card{
-        margin: 20px;
         display: inline-block;
-        .small{
-          width: 150px;
+        > *{
+          margin: 0;
+          padding: 0;
         }
+        &.small{
+          > div {
+            margin: 0 10px;
+            width: 120px;
+            height: 216px;
+            display: block;
+            .cover{
+              height:170px;
+              width: 100%;
+              display: block;
+              img{
+                width: 100%;
+                height: 100%;
+                display: block;
+                object-fit: cover;
+              }
+            }
+            .title, .type{
+              padding: 0 5px;
+              margin: 0;
+            }
+
+            .title{
+              margin-top: 3px;
+              font-size: 14px;
+              font-weight: 600;
+            }
+
+            .type{
+              font-size:10px;
+              font-weight: 400;
+              text-transform: uppercase;
+            }
+          }
+        }
+         > div {
+           pointer-events: none;
+         }
       }
     }
   }

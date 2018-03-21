@@ -52,7 +52,7 @@
 
     <div *ngIf="message.sendBy == 'bot' && message.type === 'video-card'">
       <div class="video">
-        <iframe [src]="safe(message.link)" frameborder="0" allowfullscreen width="250" height="150"></iframe>
+        <iframe [src]="safe(message.video.media)" frameborder="0" allowfullscreen width="250" height="150"></iframe>
       </div>
     </div>
     </div>

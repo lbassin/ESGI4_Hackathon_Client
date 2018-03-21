@@ -22,6 +22,12 @@ export class MessageService {
     this.update(message);
   }
 
+  showVideo(video) {
+    const message = {sendBy: 'bot', type: 'video-card', video: video};
+    console.log(message);
+    this.update(message);
+  }
+
   private update(message) {
     this.messageList.push(message);
     this.messageUpdater.emit(message);
@@ -30,5 +36,4 @@ export class MessageService {
   getMessages() {
     return this.messageList;
   }
-
 }

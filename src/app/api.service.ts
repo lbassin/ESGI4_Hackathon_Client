@@ -51,6 +51,9 @@ export class ApiService {
       case 'card':
         this.showCard(response.data);
         break;
+      case 'video':
+        this.showVideo(response.data);
+        break;
     }
 
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(response.data.vocal));
@@ -63,6 +66,11 @@ export class ApiService {
   private showCard(data) {
     this.messageService.showResponse(data.message);
     this.messageService.showCards(data.cards);
+  }
+
+  private showVideo(data) {
+    this.messageService.showResponse(data.message);
+    this.messageService.showVideo(data.video);
   }
 
 }

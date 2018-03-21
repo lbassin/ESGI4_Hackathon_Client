@@ -5,6 +5,7 @@ import {API_URL} from './app.vars';
 import {TextComponent} from './response/text/text.component';
 import {ResponseComponent} from './response/response.component';
 import {CardComponent} from './response/card/card.component';
+import { SpeechRecognitionService } from './speech-recognition.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   protected response: any;
   protected session: string;
   protected requestSent = false;
+  protected speechData: string;
 
   @ViewChild('displayArea', {read: ViewContainerRef}) container;
 
@@ -32,7 +34,8 @@ export class AppComponent implements OnInit {
     };
   }
 
-  protected sendRequest(input: HTMLTextAreaElement) {
+  protected sendRequest(input: HTMLTextAreaElement, buttonSend: HTMLButtonElement) {
+    const data = { question: input.value };
     this.requestSent = true;
     const data = {
       question: input.value,
@@ -45,6 +48,7 @@ export class AppComponent implements OnInit {
         this.addResponse(response);
         this.requestSent = false;
         this.session = response.session;
+        buttonSend.style.backgroundColor = "#FFF";
       });
   }
 
@@ -61,5 +65,32 @@ export class AppComponent implements OnInit {
     }
 
     this.service.addDynamicComponent(this.container, component, response.data);
+  }
+
+  // WARNING EARLY BETA SPEECH TO TEXT
+  protected listenRequest(input: HTMLTextAreaElement, button: HTMLButtonElement, buttonSend: HTMLButtonElement) {
+    button.style.backgroundColor = "#FF0000";
+    this.speechRecognitionService.record()
+      .subscribe(
+      //listener
+      (value) => {
+        this.speechData = value;
+        input.value = value;
+        console.log(value);
+        buttonSend.style.backgroundColor = "#FF0000";
+        this.sendRequest(input, buttonSend);
+        button.style.backgroundColor = "#FFF";
+      },
+      //errror
+      (err) => {
+        console.log(err);
+        if (err.error == "no-speech") {
+          console.log("--restatring service--");
+        }
+      },
+      //completion
+      () => {
+        console.log("--complete--");
+      });
   }
 }

@@ -1,0 +1,35 @@
+@import "../../node_modules/uikit/src/scss/variables-theme.scss";
+@import "../../node_modules/uikit/src/scss/mixins-theme.scss";
+@import "../../node_modules/uikit/src/scss/uikit-theme.scss";
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+#root{
+  margin-left:500px;
+}
+.right{
+  position: fixed;
+  width: 100%;
+  max-width: 500px;
+  right: 0;
+  top: 0;
+  background: #1D1D1D;
+  height: 100%;
+}
+app-response-block{
+  width: calc(100% - 500px);
+  height: 100%;
+}
+app-chat-message-list{
+  width: 100%;
+  height: calc(100% - 60px);
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+app-chat-input{
+  width: calc(100% - 30px);
+  height: 50px;
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  padding: 5px 15px;
+}

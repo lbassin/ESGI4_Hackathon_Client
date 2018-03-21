@@ -1,0 +1,138 @@
+@import "../../../node_modules/uikit/src/scss/variables-theme.scss";
+@import "../../../node_modules/uikit/src/scss/mixins-theme.scss";
+@import "../../../node_modules/uikit/src/scss/uikit-theme.scss";
+
+
+.welcome-block{
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  transform: translateY(-50%) translateX(-50%);
+  transition: all ease 0.5s;
+  &.close{
+    margin-top:-30px;
+    opacity: 0;
+  }
+  .logo{
+    max-width: 80px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    svg{
+      width: 100%;
+      height: auto;
+    }
+  }
+  .welcome-title{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .welcome-subtitle{
+    color:#4A4A4A;
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    margin-top: 15px;
+  }
+  .help-button{
+    background:#343434;
+    color:#fff;
+    font-size: 12px;
+    text-align: center;
+    border:none;
+    border-radius:20px;
+    padding:0 20px;
+    height: 35px;
+    width: 100%;
+    margin-top: 15px;
+    cursor:pointer;
+    outline:none;
+  }
+}
+
+.messages-block{
+  &::-webkit-scrollbar, &::-webkit-scrollbar-track, &::-webkit-scrollbar-thumb {
+    width: 1em;
+    border-radius: 10px;
+    width: 5px;
+    right: 5px;
+    //margin-right: 5px;
+    position: absolute;
+    display: block;
+    z-index: 10;
+  }
+
+  &::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0.3);
+    width: 0;
+  }
+  &::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb{
+    width: 5px;
+  }
+
+  transition: all ease 1.5s;
+  min-height: 0;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  max-height: 100%;
+  display: block;
+  overflow:hidden;
+  >.bubble{
+    width: calc(100% - 20px);
+    position: relative;
+    transition:all ease 0.2s;
+    overflow: hidden;
+    display: block;
+    margin-top: 3px;
+
+  }
+
+  .bubble{
+    &.sended{
+      background: #eee;
+      max-width: 80%;
+      padding:5px 20px;
+      border-radius: 20px;
+      background: #FF6600;
+      color:#fff;
+      font-size: 15px;
+      text-align: right;
+      clear:right;
+      float:right;
+      right: 0;
+      min-width: 30px;
+      overflow: hidden;
+    }
+    p{
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  div{
+
+    .cards-slider{
+      width: 100%;
+      .card{
+        margin: 20px;
+        display: inline-block;
+        .small{
+          width: 150px;
+        }
+      }
+    }
+  }
+}

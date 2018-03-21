@@ -1,7 +1,10 @@
 <div class="main-input">
-  <input class="input-search uk-input" placeholder="{{placeholderMessage}}" (keypress)="submit($event, $event.target)">
+  <input class="input-search uk-input"
+         placeholder="{{placeholderMessage}}"
+         (keypress)="submit($event, $event.target)"
+  #input>
   <button class="microphone-button">
-    <i class="uk-icon-microphone uk-icon-medium" uk-icon="icon: micro"></i>
+    <i class="uk-icon-microphone uk-icon-medium" uk-icon="icon: micro" (click)="listenRequest(input)"></i>
   </button>
   <button class="help-button">
     <i class="uk-icon-question uk-icon-medium" uk-icon="icon: question"></i>

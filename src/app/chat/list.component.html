@@ -24,10 +24,10 @@
          <li ngClass="card small" *ngFor="let card of message.cards">
             <div ngClass="uk-card uk-card-default">
               <div class="cover">
-                <img src="{{card.img}}" alt="">
+                <img src="{{card.media}}" alt="">
               </div>
-              <p ngClass="title">{{card.name}}</p>
-              <p ngClass="type">{{card.type}}</p>
+              <p ngClass="title">{{card.title}}</p>
+              <p ngClass="type">{{card.caption}}</p>
             </div>
          </li>
        </ul>

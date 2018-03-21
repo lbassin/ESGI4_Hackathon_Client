@@ -23,7 +23,6 @@ export class ChatComponent implements OnInit {
 
   submit(event: KeyboardEvent, elem: HTMLInputElement) {
     if (event.keyCode === 13) {
-      this.messageService.add({textMessage: elem.value, sendBy: 'user'});
       this.apiService.ask(elem.value);
 
       elem.value = '';

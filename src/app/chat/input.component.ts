@@ -28,56 +28,40 @@ export class ChatComponent implements OnInit {
     this.keepSpeechAlive();
   }
 
-  submit(event: KeyboardEvent, elem: HTMLInputElement) {
+  submit(event: any, elem: HTMLInputElement) {
     if (event.keyCode === 13) {
       this.apiService.ask(elem.value);
+      setTimeout(() => this.keepSpeechAlive(), 1250);
 
       elem.value = '';
     }
   }
 
   protected keepSpeechAlive() {
-    console.log('listening');
-    this.speechRecognitionService.record()
-      .subscribe(
-        (value) => {
-          this.speechRecognitionService.DestroySpeechObject();
-          if (value === 'ok djingo') {
-            const msg = new SpeechSynthesisUtterance('Que puis-je faire pour vous ?');
-            window.speechSynthesis.speak(msg);
-            console.log('j\'écoute');
-            this.listenRequest(this.input.nativeElement);
-          } else if ('merci') {
-            const msg = new SpeechSynthesisUtterance('De rien ma gueule');
-            window.speechSynthesis.speak(msg);
-          } else {
-            this.speechData = value;
-            const css = 'color: red';
-            console.log('%c %s', css, value);
-            console.log('restarting');
-            this.keepSpeechAlive();
-          }
-        });
+    this.speechRecognitionService.record().subscribe((value) => {
+      this.speechRecognitionService.DestroySpeechObject();
+      if (value === 'ok Google') {
+        const msg = new SpeechSynthesisUtterance('Que puis-je faire pour vous ?');
+        window.speechSynthesis.speak(msg);
+
+        setTimeout(() => {
+          this.listenRequest(this.input.nativeElement);
+        }, 1000);
+      } else {
+        this.keepSpeechAlive();
+      }
+    });
   }
 
   protected listenRequest(input: HTMLTextAreaElement) {
-    this.speechRecognitionService.record()
-      .subscribe(
-        (value) => {
-          this.speechData = value;
-          input.value = value;
-          console.log(value);
-          console.log('restarting after success');
-          this.keepSpeechAlive();
-        },
-        (err) => {
-          console.log(err);
-          if (err.error === 'no-speech') {
-            console.log('--restatring service--');
-          }
-        },
-        () => {
-          console.log('--complete--');
-        });
+    this.speechRecognitionService.record().subscribe((value) => {
+        this.speechData = value;
+        input.value = value[0].toUpperCase() + value.slice(1);
+        input.focus();
+        this.submit({keyCode: 13}, this.input.nativeElement);
+        this.keepSpeechAlive();
+      },
+      (err) => {
+      });
   }
 }

@@ -52,6 +52,8 @@ export class ApiService {
         this.showCard(response.data);
         break;
     }
+
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(response.data.vocal));
   }
 
   private showText(data) {

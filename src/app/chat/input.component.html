@@ -3,8 +3,8 @@
          placeholder="{{placeholderMessage}}"
          (keypress)="submit($event, $event.target)"
   #input>
-  <button class="microphone-button">
-    <i class="uk-icon-microphone uk-icon-medium" uk-icon="icon: micro" (click)="listenRequest(input)"></i>
+  <button class="microphone-button" (click)="listenRequest(input)">
+    <i class="uk-icon-microphone uk-icon-medium" uk-icon="icon: rss"></i>
   </button>
   <button class="help-button">
     <i class="uk-icon-question uk-icon-medium" uk-icon="icon: question"></i>

@@ -1,16 +1,17 @@
-import {animate, Component, OnInit, OnChanges, style, transition, trigger, SimpleChanges, ElementRef, AfterViewInit} from '@angular/core';
-import {MessageService} from '../Injectables/message-service';
+import {animate, Component, OnInit, style, transition, trigger, ElementRef} from '@angular/core';
+import {MessageService} from '../message-service';
+
 declare var UIkit: any;
 
 @Component({
-  selector: 'app-chat-message-list',
-  templateUrl: './chat-message-list.component.html',
-  styleUrls: ['./chat-message-list.component.scss'],
+  selector: 'app-chat-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
-        style({ opacity: '0'}),
-        animate('.5s ease-out', style({ opacity: '1' })),
+        style({opacity: '0'}),
+        animate('.5s ease-out', style({opacity: '1'})),
       ]),
     ]),
     trigger('slideIn', [
@@ -22,13 +23,15 @@ declare var UIkit: any;
   ],
   providers: [],
 })
-export class ChatMessageListComponent implements OnInit{
+export class ChatMessageListComponent implements OnInit {
   messages: Array<Object>;
+
   constructor(private _messageService: MessageService, private elementRef: ElementRef) {
     this._messageService = _messageService;
     this.messages = [];
     console.log(UIkit);
   }
+
   messagesBlockEventStart(event: any) {
     const messageBlock = this.elementRef.nativeElement.querySelector('.messages-block');
     if (messageBlock.clientHeight >= messageBlock.parentElement.clientHeight) {

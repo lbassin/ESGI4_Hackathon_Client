@@ -15,10 +15,10 @@ export class AppComponent implements OnInit {
 
   headers: { headers: HttpHeaders };
   protected response: any;
+  protected session: string;
+  protected requestSent = false;
 
   @ViewChild('displayArea', {read: ViewContainerRef}) container;
-
-  protected requestSent = false;
 
   constructor(private http: HttpClient, private service: ComponentService) {
   }
@@ -33,14 +33,18 @@ export class AppComponent implements OnInit {
   }
 
   protected sendRequest(input: HTMLTextAreaElement) {
-    const data = {question: input.value};
     this.requestSent = true;
+    const data = {
+      question: input.value,
+      session: this.session,
+    };
 
     this.http.post(API_URL, data, this.headers).toPromise()
-      .then((response: { type: string, data: any }) => {
+      .then((response: { type: string, data: any, session?: string }) => {
         this.response = JSON.stringify(response);
         this.addResponse(response);
         this.requestSent = false;
+        this.session = response.session;
       });
   }
 

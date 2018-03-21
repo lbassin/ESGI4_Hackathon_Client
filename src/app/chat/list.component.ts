@@ -20,6 +20,12 @@ declare var UIkit: any;
         animate('.5s ease-out', style({transform: 'TranslateY(0)'})),
       ]),
     ]),
+    trigger('leftIn', [
+      transition(':enter', [
+        style({transform: 'TranslateX(100%)'}),
+        animate('.5s ease-out', style({transform: 'TranslateX(100%)'})),
+      ]),
+    ]),
   ],
   providers: [],
 })

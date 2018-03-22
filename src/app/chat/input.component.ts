@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
-import {MessageService} from '../message-service';
-import {ChatMessageListComponent} from './list.component';
-import {ApiService} from '../api.service';
-import {SpeechRecognitionService} from '../speech-recognition.service';
-import {VoiceService} from '../voice.service';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MessageService } from '../message-service';
+import { ChatMessageListComponent } from './list.component';
+import { ApiService } from '../api.service';
+import { SpeechRecognitionService } from '../speech-recognition.service';
+import { VoiceService } from '../voice.service';
 
 @Component({
   selector: 'app-chat-input',
@@ -18,14 +18,16 @@ export class ChatComponent implements OnInit {
 
   protected placeholderMessage: string;
   protected speechData: string;
+  protected audioBeep: any;
 
   constructor(private messageService: MessageService,
-              private apiService: ApiService,
-              private speechRecognitionService: SpeechRecognitionService,
-              private voiceService: VoiceService) {
+    private apiService: ApiService,
+    private speechRecognitionService: SpeechRecognitionService,
+    private voiceService: VoiceService) {
   }
 
   ngOnInit() {
+    this.audioBeep = new Audio('../../assets/beep.wav');
     this.placeholderMessage = 'Tapez votre message ici';
     this.keepSpeechAlive();
 
@@ -61,21 +63,21 @@ export class ChatComponent implements OnInit {
   private vocalActivation() {
     const msg = new SpeechSynthesisUtterance(this.getActivationSentence());
     window.speechSynthesis.speak(msg);
-
-    setTimeout(() => {
+    msg.onend = event => {
       this.listenRequest(this.input.nativeElement);
-    }, 1750);
+    }
   }
 
   protected listenRequest(input: HTMLTextAreaElement) {
     console.log('RECORD');
+    this.audioBeep.play();
     this.speechRecognitionService.record().subscribe((value) => {
-        this.speechData = value;
-        input.value = value[0].toUpperCase() + value.slice(1);
-        input.focus();
-        this.submit({keyCode: 13}, this.input.nativeElement);
-        this.keepSpeechAlive();
-      },
+      this.speechData = value;
+      input.value = value[0].toUpperCase() + value.slice(1);
+      input.focus();
+      this.submit({ keyCode: 13 }, this.input.nativeElement);
+      this.keepSpeechAlive();
+    },
       (err) => {
       });
   }

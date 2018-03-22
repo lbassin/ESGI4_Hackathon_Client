@@ -1,16 +1,16 @@
 <div [ngClass]="{'fiche-media': true, 'close': !state}">
   <div class="cover">
-      <img src="{{media}}" alt="">
+      <img src="{{card.poster}}" alt="">
   </div>
 
   <div class="uk-container">
     <div class="title">
-      <h2>{{titre}}</h2>
+      <h2>{{card.title}}</h2>
     </div>
 
     <div class="desc">
       <h2 class="desc-title">Synopsis</h2>
-      <p>{{synopsis}}</p>
+      <p>{{card.overview}}</p>
     </div>
   </div>
 

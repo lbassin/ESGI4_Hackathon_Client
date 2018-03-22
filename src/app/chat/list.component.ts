@@ -11,6 +11,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 import {MessageService} from '../message-service';
+import {DetailsService} from '../details.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -42,7 +43,9 @@ export class ChatMessageListComponent implements OnInit {
   messages: Array<Object>;
   iframeHeight = 250;
 
-  constructor(private _messageService: MessageService, private elementRef: ElementRef) {
+  constructor(private _messageService: MessageService,
+              private elementRef: ElementRef,
+              private detailsService: DetailsService) {
     this._messageService = _messageService;
     this.messages = [];
   }
@@ -77,6 +80,12 @@ export class ChatMessageListComponent implements OnInit {
     this._messageService.messageUpdater.subscribe(
       (message) => {
         this.messages = this._messageService.getMessages();
+        const lastMessage: any = this.messages[this.messages.length - 1];
+        if (lastMessage.type === 'film-cards') {
+          this.detailsService.show(lastMessage.cards[0]);
+        } else {
+          this.detailsService.show(null);
+        }
       }
     );
   }

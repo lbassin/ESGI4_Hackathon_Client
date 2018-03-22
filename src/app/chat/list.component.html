@@ -37,11 +37,11 @@
     <div *ngIf="message.sendBy == 'bot' && message.type === 'help-cards'"  ngClass="cards-slider-container">
       <div ngClass="cards-slider uk-position-relative uk-visible-toggle uk-light" uk-slider="finite: true">
         <ul  ngClass="uk-slider-items">
-          <li ngClass="card large" *ngFor="let card of message.cards">
+          <li ngClass="card large" *ngFor="let help of message.helps">
             <div ngClass="uk-card uk-card-default help-card">
-              <p ngClass="help-title">{{card.title}}</p>
-              <p ngClass="help-desc">{{card.desc}}</p>
-              <button ngClass="help-button">{{card.button}}</button>
+              <p ngClass="help-title">{{help.title}}</p>
+              <p ngClass="help-desc">{{help.desc}}</p>
+              <button ngClass="help-button">{{help.button}}</button>
             </div>
           </li>
         </ul>

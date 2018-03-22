@@ -76,6 +76,9 @@ export class ApiService {
       case 'init_done':
         this.doneInit(response);
         break;
+      case 'help':
+        this.showHelp(response.data);
+        break;
     }
 
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(response.data.vocal));
@@ -88,6 +91,11 @@ export class ApiService {
   private showCard(data) {
     this.messageService.showResponse(data.message);
     this.messageService.showCards(data.cards);
+  }
+
+  private showHelp(data){
+    this.messageService.showResponse(data.message);
+    this.messageService.showHelps(data.helps);
   }
 
   private showVideo(data) {

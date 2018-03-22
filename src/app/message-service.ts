@@ -33,6 +33,11 @@ export class MessageService {
     this.update(message);
   }
 
+  showHelps(helps) {
+    const message = {sendBy: 'bot', type: 'help-cards', helps: helps};
+    this.update(message);
+  }
+
   private update(message) {
     this.messageList.push(message);
     this.messageUpdater.emit(message);

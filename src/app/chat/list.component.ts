@@ -40,6 +40,7 @@ import {MessageService} from '../message-service';
 })
 export class ChatMessageListComponent implements OnInit {
   messages: Array<Object>;
+  iframeHeight = 250;
 
   constructor(private _messageService: MessageService, private elementRef: ElementRef) {
     this._messageService = _messageService;
@@ -68,18 +69,14 @@ export class ChatMessageListComponent implements OnInit {
   }
 
   resizeIframe(event: any) {
-    console.log(event.path[0]);
     const width = event.path[0].clientWidth;
-
-    console.log((width * 56.25) / 100);
-    event.path[0].style.height = ((width * 56.25) / 100) + 'px';
+    this.iframeHeight = ((width * 56.25) / 100);
   }
 
   ngOnInit() {
     this._messageService.messageUpdater.subscribe(
       (message) => {
         this.messages = this._messageService.getMessages();
-        // this.messagesBlockTrigger();
       }
     );
   }

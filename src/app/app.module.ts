@@ -17,6 +17,7 @@ import {MessageService} from './message-service';
 import {ApiService} from './api.service';
 import { AdviceBackgroundComponent } from './advice-background/advice-background.component';
 import {VoiceService} from './voice.service';
+import { FicheMediaComponent } from './fiche-media/fiche-media.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {VoiceService} from './voice.service';
     ChatMessageListComponent,
     ResponseBlockComponent,
     AdviceBackgroundComponent,
+    FicheMediaComponent,
   ],
   providers: [
     ComponentService,

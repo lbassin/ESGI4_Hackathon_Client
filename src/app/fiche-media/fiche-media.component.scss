@@ -1,0 +1,46 @@
+.fiche-media{
+  background: #ffffff;
+  height: 100vh;
+  transition: all ease 0.3s;
+  transform: translateY(0);
+  &.close{
+    transform: translateY(100%);
+  }
+  .cover{
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+    transition: all ease 0.2s;
+    max-height: 300px;
+    img{
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .uk-container{
+    .title{
+      padding:5px 0;
+      width: 100%;
+      h2{
+        font-size: 30px;
+        font-weight: 600;
+      }
+    }
+
+    .desc{
+      margin-top: 25px;
+      .desc-title{
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      p{
+        line-height: 32px;
+        font-size: 16px;
+        color: #gggggg;
+      }
+    }
+  }
+}

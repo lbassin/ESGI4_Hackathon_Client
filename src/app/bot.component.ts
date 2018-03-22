@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from './message-service';
-import {ApiService} from './api.service';
-import {Router} from '@angular/router';
-import {VoiceService} from './voice.service';
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from './message-service';
+import { ApiService } from './api.service';
+import { Router } from '@angular/router';
+import { VoiceService } from './voice.service';
 
 @Component({
   templateUrl: './bot.component.html',
@@ -13,9 +13,9 @@ export class BotComponent implements OnInit {
   private isKnownUser = false;
 
   constructor(private messageService: MessageService,
-              private apiService: ApiService,
-              private router: Router,
-              private voiceService: VoiceService) {
+    private apiService: ApiService,
+    private router: Router,
+    private voiceService: VoiceService) {
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class BotComponent implements OnInit {
     this.apiService.setUrlToInit();
     this.messageService.showResponse('Bonjour et bienvenue sur Djingo ! :)');
     window.speechSynthesis.speak(
-      new SpeechSynthesisUtterance('Bonjour !. Bienvenue sur Djingo !. Avant de commencer, nous avons quelques question à vous poser')
+      new SpeechSynthesisUtterance('Bonjour !. Bienvenue sur Djinngo !. Avant de commencer, nous avons quelques question à vous poser.')
     );
 
     this.messageService.showResponse('Avant de pouvoir utiliser nos services, nous avons besoin de quelques informations à votre sujet');

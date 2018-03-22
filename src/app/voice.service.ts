@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class VoiceService {
 
   private event: Subject<any> = new Subject();
-  private autoRecordOnInit = false;
+  private autoRecordOnInit = true;
 
   constructor() {
   }

@@ -76,6 +76,7 @@ export class ApiService {
         break;
       case 'init_erreur':
         this.showInitErreur(response);
+        restartRecord = true;
         break;
       case 'init_done':
         this.doneInit(response);

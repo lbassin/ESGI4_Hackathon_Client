@@ -30,6 +30,10 @@ export class ChatComponent implements OnInit {
 
   submit(event: any, elem: HTMLInputElement) {
     if (event.keyCode === 13) {
+      if (elem.value.trim().length <= 0) {
+        return;
+      }
+
       this.apiService.ask(elem.value);
       setTimeout(() => this.keepSpeechAlive(), 1250);
 

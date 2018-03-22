@@ -58,7 +58,7 @@ export class ApiService {
       });
   }
 
-  private displayResponse(response: { type: string, data: any, session?: string }) {
+  private displayResponse(response: { type: string, data: any, session?: string, restartRecord?: boolean }) {
     let restartRecord = false;
 
     switch (response.type) {

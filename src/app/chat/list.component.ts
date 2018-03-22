@@ -49,13 +49,30 @@ export class ChatMessageListComponent implements OnInit {
   messagesBlockEventStart(event: any) {
     const messageBlock = this.elementRef.nativeElement.querySelector('.messages-block');
     if (messageBlock.clientHeight >= messageBlock.parentElement.clientHeight) {
-
+      messageBlock.style.marginRight = '0';
       const computed = window.getComputedStyle(event.element);
       const mt = parseInt(computed.getPropertyValue('margin-top'), 10);
       const mb = parseInt(computed.getPropertyValue('margin-bottom'), 10);
       const st = messageBlock.scrollTop + event.element.offsetHeight + mt + mb;
       messageBlock.scrollTo(0, st);
     }
+  }
+
+  messagesBlockEventEnd(event: any) {
+    const messageBlock = this.elementRef.nativeElement.querySelector('.messages-block');
+    if (messageBlock.clientHeight >= messageBlock.parentElement.clientHeight) {
+      messageBlock.style.overflowY = 'auto';
+      messageBlock.style.paddingRight = '-10px';
+      messageBlock.style.display = 'block';
+    }
+  }
+
+  resizeIframe(event: any) {
+    console.log(event.path[0]);
+    const width = event.path[0].clientWidth;
+
+    console.log((width * 56.25) / 100);
+    event.path[0].style.height = ((width * 56.25) / 100) + 'px';
   }
 
   ngOnInit() {

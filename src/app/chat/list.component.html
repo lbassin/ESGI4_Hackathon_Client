@@ -9,7 +9,7 @@
 </div>
 
 <div ngClass="messages-block">
-  <div (@slideIn.start)="messagesBlockEventStart($event)"[@fadeIn]="''" [@slideIn]="''" *ngFor="let message of messages" [ngStyle]="{'position':'relative', 'overflow': 'hidden'}">
+  <div (@slideIn.start)="messagesBlockEventStart($event)" (@slideIn.done)="messagesBlockEventEnd($event)" [@fadeIn]="''" [@slideIn]="''" *ngFor="let message of messages" [ngStyle]="{'position':'relative', 'overflow': 'hidden'}">
     <div *ngIf="message.sendBy == 'user'" [ngClass]="{'bubble':true, 'sended':message.sendBy == 'user' }">
       <p>{{message.textMessage}}</p>
     </div>
@@ -34,16 +34,14 @@
       </div>
     </div>
 
-    <div *ngIf="message.sendBy == 'bot' && message.type === 'news-cards'"  ngClass="cards-slider-container">
+    <div *ngIf="message.sendBy == 'bot' && message.type === 'help-cards'"  ngClass="cards-slider-container">
       <div ngClass="cards-slider uk-position-relative uk-visible-toggle uk-light" uk-slider="finite: true">
         <ul  ngClass="uk-slider-items">
           <li ngClass="card large" *ngFor="let card of message.cards">
-            <div ngClass="uk-card uk-card-default">
-              <div class="cover">
-                <img src="{{card.video}}" alt="">
-              </div>
-              <p ngClass="title">{{card.name}}</p>
-              <p ngClass="type">{{card.type}}</p>
+            <div ngClass="uk-card uk-card-default help-card">
+              <p ngClass="help-title">{{card.title}}</p>
+              <p ngClass="help-desc">{{card.desc}}</p>
+              <button ngClass="help-button">{{card.button}}</button>
             </div>
           </li>
         </ul>

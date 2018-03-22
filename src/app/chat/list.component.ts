@@ -83,6 +83,8 @@ export class ChatMessageListComponent implements OnInit {
         const lastMessage: any = this.messages[this.messages.length - 1];
         if (lastMessage.type === 'film-cards') {
           this.detailsService.show(lastMessage.cards[0]);
+        } else {
+          this.detailsService.show(null);
         }
       }
     );

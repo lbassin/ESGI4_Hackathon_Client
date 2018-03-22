@@ -57,6 +57,14 @@ export class ChatMessageListComponent implements OnInit{
       messageBlock.style.display = 'block';
     }
   }
+
+  resizeIframe(event: any) {
+    console.log(event.path[0]);
+    const width = event.path[0].clientWidth;
+
+    console.log((width * 56.25) / 100);
+    event.path[0].style.height = ((width * 56.25) / 100) +'px';
+  }
   safe(value) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(value);
   }

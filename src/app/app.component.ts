@@ -7,7 +7,15 @@ import {MessageService} from './Injectables/message-service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  listResponseValue: any;
+  constructor() {
+    this.listResponseValue = '';
+  }
+  messageListReponse(value:any) {
+    if (value !== '') {
+      this.listResponseValue = JSON.stringify(value);
+    }
+  }
 }
 
 

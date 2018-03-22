@@ -1,0 +1,17 @@
+<div [ngClass]="{'fiche-media': true, 'close': !state}">
+  <div class="cover">
+      <img src="{{media}}" alt="">
+  </div>
+
+  <div class="uk-container">
+    <div class="title">
+      <h2>{{titre}}</h2>
+    </div>
+
+    <div class="desc">
+      <h2 class="desc-title">Synopsis</h2>
+      <p>{{synopsis}}</p>
+    </div>
+  </div>
+
+</div>

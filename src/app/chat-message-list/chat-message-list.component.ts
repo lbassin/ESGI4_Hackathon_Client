@@ -1,4 +1,7 @@
-import {animate, Component, OnInit, OnChanges, style, transition, trigger, SimpleChanges, ElementRef, AfterViewInit} from '@angular/core';
+import {
+  animate, Component, OnInit, OnChanges, style, transition, trigger, SimpleChanges, ElementRef, AfterViewInit,
+  Output, EventEmitter
+} from '@angular/core';
 import {MessageService} from '../Injectables/message-service';
 import {DomSanitizer} from '@angular/platform-browser';
 declare var UIkit: any;
@@ -29,12 +32,22 @@ declare var UIkit: any;
   ],
   providers: [],
 })
-export class ChatMessageListComponent implements OnInit{
+export class ChatMessageListComponent implements OnInit {
+
+  @Output() reponseChange: EventEmitter<object> = new EventEmitter();
+
   messages: Array<Object>;
+  reponseValue: any;
+
   constructor(private _messageService: MessageService, private elementRef: ElementRef, private sanitizer: DomSanitizer) {
     this._messageService = _messageService;
     this.sanitizer = sanitizer;
     this.messages = [];
+  }
+
+  set response(val) {
+    this.reponseValue = val;
+    this.reponseChange.emit(this.reponseValue);
   }
 
   messagesBlockEventStart(event: any) {
@@ -53,17 +66,14 @@ export class ChatMessageListComponent implements OnInit{
     const messageBlock = this.elementRef.nativeElement.querySelector('.messages-block');
     if (messageBlock.clientHeight >= messageBlock.parentElement.clientHeight) {
       messageBlock.style.overflowY = 'auto';
-      messageBlock.style.paddingRight= '-10px';
+      messageBlock.style.paddingRight = '-10px';
       messageBlock.style.display = 'block';
     }
   }
 
   resizeIframe(event: any) {
-    console.log(event.path[0]);
     const width = event.path[0].clientWidth;
-
-    console.log((width * 56.25) / 100);
-    event.path[0].style.height = ((width * 56.25) / 100) +'px';
+    event.path[0].style.height = ((width * 56.25) / 100) + 'px';
   }
   safe(value) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(value);
@@ -72,6 +82,10 @@ export class ChatMessageListComponent implements OnInit{
     this._messageService.messageUpdater.subscribe(
       (message) => {
         this.messages = this._messageService.getMessages();
+        if (message.type === 'film-cards') {
+          console.log(message);
+          this.reponseChange.emit(message.cards[0]);
+        }
         // this.messagesBlockTrigger();
       }
     );

@@ -9,6 +9,7 @@ import {MessageService} from './Injectables/message-service';
 import { ResponseBlockComponent } from './response-block/response-block.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AdviceBackgroundComponent } from './advice-background/advice-background.component';
+import { FicheMediaComponent } from './fiche-media/fiche-media.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { AdviceBackgroundComponent } from './advice-background/advice-background
     ChatMessageListComponent,
     ResponseBlockComponent,
     AdviceBackgroundComponent,
+    FicheMediaComponent,
   ],
   imports: [
     BrowserModule,

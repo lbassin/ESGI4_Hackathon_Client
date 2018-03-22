@@ -8,7 +8,7 @@ export class MessageService {
   messageList = [];
   messageUpdater: EventEmitter<any> = new EventEmitter();
 
-  constructor(protected sanitizer: DomSanitizer){
+  constructor(protected sanitizer: DomSanitizer) {
     this.sanitizer = sanitizer;
   }
   responseMessage() {
@@ -106,7 +106,9 @@ export class MessageService {
     responseObject.cards.push({
       name : 'Breaking Bad',
       type : 'Action',
-      img : 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg'
+      img : 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg',
+      synopsis: 'La série d\'action Marvel "A.K.A. Jessica Jones" suit une ex super-héroïne perturbée et hantée par son passé, qui travaille comme détective privée dans le quartier de Hell\'s Kitchen à New York.',
+
     });
 
     responseObject.cards.push({

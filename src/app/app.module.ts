@@ -15,9 +15,10 @@ import {ResponseBlockComponent} from './response-block/response-block.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MessageService} from './message-service';
 import {ApiService} from './api.service';
-import { AdviceBackgroundComponent } from './advice-background/advice-background.component';
+import {AdviceBackgroundComponent} from './advice-background/advice-background.component';
 import {VoiceService} from './voice.service';
-import { FicheMediaComponent } from './fiche-media/fiche-media.component';
+import {FicheMediaComponent} from './fiche-media/fiche-media.component';
+import {DetailsService} from './details.service';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { FicheMediaComponent } from './fiche-media/fiche-media.component';
     MessageService,
     ApiService,
     VoiceService,
+    DetailsService,
   ],
   entryComponents: [
     ResponseComponent,

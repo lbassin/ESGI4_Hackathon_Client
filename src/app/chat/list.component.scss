@@ -133,7 +133,35 @@
   }
 
   div {
-
+    .help-card {
+      font-size: 14px;
+      border-radius: 16px;
+      position: relative;
+      .help-card-title {
+        margin: 15px 10px 0;
+        display: inline-block;
+        font-weight: 600;
+        width: calc(100% - 20px);
+      }
+      .help-card-desc {
+        display: inline-block;
+        margin: 15px 10px 0;
+        font-weight: 300;
+        width: calc(100% - 20px);
+      }
+      .help-card-button {
+        position: absolute;
+        bottom: 5px;
+        width: 95%;
+        margin-left: 2.5%;
+        height: 30px;
+        background: #ff6600;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 14px;
+        border: none;
+      }
+    }
     .video {
       margin-top: 10px;
       position: relative;
@@ -151,32 +179,7 @@
     .cards-slider-container {
       transition: all ease 0.5s;
     }
-    .help-card {
-      font-size: 14px;
-      border-radius: 16px;
-      .help-title {
-        margin: 15px 10px 0;
-        display: inline-block;
-        font-weight: 600;
-      }
-      .help-desc {
-        display: inline-block;
-        margin: 15px 10px 0;
-        font-weight: 300;
-      }
-      .help-button {
-        position: absolute;
-        bottom: 5px;
-        width: 95%;
-        margin-left: 2.5%;
-        height: 30px;
-        background: #ff6600;
-        color: #ffffff;
-        text-align: center;
-        border-radius: 14px;
-        border: none;
-      }
-    }
+
     .cards-slider {
       width: 100%;
       margin-top: 15px;

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MessageService} from './message-service';
 import {ApiService} from './api.service';
+import {Router} from '@angular/router';
 
 @Component({
   templateUrl: './bot.component.html',
@@ -10,10 +11,15 @@ export class BotComponent implements OnInit {
 
   private isKnownUser = false;
 
-  constructor(private messageService: MessageService, private apiService: ApiService) {
+  constructor(private messageService: MessageService,
+              private apiService: ApiService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
+    const id = this.router.routerState.snapshot.url;
+    this.isKnownUser = id.length > 0;
+
     if (!this.isKnownUser) {
       setTimeout(() => {
         this.startSetup();

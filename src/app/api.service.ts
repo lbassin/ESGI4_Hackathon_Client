@@ -27,8 +27,6 @@ export class ApiService {
       id = id.slice(1);
     }
 
-    console.log(id);
-
     this.headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -44,7 +42,6 @@ export class ApiService {
     };
 
     this.messageService.showQuestion(question);
-    console.log(this.headers);
     this.http.post(this.url, data, this.headers).toPromise()
       .then((response: { type: string, data: any, session?: string }) => {
         this.response = JSON.stringify(response);
@@ -67,6 +64,9 @@ export class ApiService {
         break;
       case 'init':
         this.showInit(response);
+        break;
+      case 'init_erreur':
+        this.showInitErreur(response);
         break;
       case 'init_done':
         this.doneInit(response);
@@ -98,6 +98,24 @@ export class ApiService {
         this.updateHeaders();
       }, 750);
     }
+  }
+
+  private showInitErreur(data) {
+    setTimeout(() => {
+      this.messageService.showResponse('J\'ai peur de ne pas avoir bien compris');
+      this.messageService.showResponse('Veuillez répondre par une des propositions suivantes');
+      let options = '';
+      for (const index in data.data.options) {
+        if (!data.data.options.hasOwnProperty(index)) {
+          continue;
+        }
+
+        options += data.data.options[index] + ' / ';
+      }
+      options = options.slice(0, options.length - 2);
+
+      this.messageService.showResponse(options);
+    });
   }
 
   private doneInit(data) {

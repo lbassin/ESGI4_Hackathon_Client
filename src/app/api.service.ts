@@ -48,6 +48,12 @@ export class ApiService {
         this.session = response.session;
 
         this.displayResponse(response);
+      })
+      .catch((response) => {
+        console.log(response);
+        setTimeout(() => {
+          this.messageService.showResponse('Je suis désolé... Je n\'arrive pas à joindre mes informateurs');
+        }, 750);
       });
   }
 
@@ -92,7 +98,7 @@ export class ApiService {
 
   private showInit(data) {
     if (data.session === 'genre') {
-      this.router.navigate([data.data.pseudo]);
+      this.router.navigate([data.data.pseudo.toLowerCase()]);
       setTimeout(() => {
         this.messageService.showResponse(data.data.message);
         this.updateHeaders();

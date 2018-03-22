@@ -18,7 +18,7 @@ export class BotComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.router.routerState.snapshot.url;
-    this.isKnownUser = id.length > 0;
+    this.isKnownUser = id.length > 0 && id !== '/';
 
     if (!this.isKnownUser) {
       setTimeout(() => {

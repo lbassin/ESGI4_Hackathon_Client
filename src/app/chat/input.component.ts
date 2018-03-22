@@ -56,7 +56,7 @@ export class ChatComponent implements OnInit {
   protected keepSpeechAlive() {
     this.speechRecognitionService.record().subscribe((value) => {
       this.speechRecognitionService.DestroySpeechObject();
-      if (value === 'ok Google') {
+      if (value === 'ok Djingo') {
         this.vocalActivation();
       } else {
         this.keepSpeechAlive();

@@ -32,6 +32,13 @@
     &:first-of-type{
       margin:0 15px;
     }
+    .icon{
+      margin: 5px;
+      svg{
+        width: 25px;
+        fill:#fff
+      }
+    }
     i{
       font-size: 30px;
       text-align: center;

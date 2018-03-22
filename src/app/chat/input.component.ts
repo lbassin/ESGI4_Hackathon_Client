@@ -32,12 +32,6 @@ export class ChatComponent implements OnInit {
     this.voiceService.getSubject().subscribe(() => {
       this.listenRequest(this.input.nativeElement);
     });
-
-    window.addEventListener('keypress', (event) => {
-      if (event.keyCode === 41) {
-        this.vocalActivation(); // TODO REMOVE DEBUG
-      }
-    });
   }
 
   submit(event: any, elem: HTMLInputElement) {

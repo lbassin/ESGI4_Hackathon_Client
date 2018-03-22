@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {MessageService} from './message-service';
+import {VoiceService} from './voice.service';
 
 @Injectable()
 export class ApiService {
@@ -17,7 +18,8 @@ export class ApiService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private voiceService: VoiceService) {
     this.updateHeaders();
   }
 
@@ -57,6 +59,8 @@ export class ApiService {
   }
 
   private displayResponse(response: { type: string, data: any, session?: string }) {
+    let restartRecord = false;
+
     switch (response.type) {
       case 'text':
         this.showText(response.data);
@@ -81,7 +85,16 @@ export class ApiService {
         break;
     }
 
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(response.data.vocal));
+    if (response.restartRecord) {
+      restartRecord = true;
+    }
+
+    const text = new SpeechSynthesisUtterance(response.data.vocal);
+    if (restartRecord) {
+      text.onend = this.voiceService.startRecording.bind(this.voiceService);
+    }
+
+    window.speechSynthesis.speak(text);
   }
 
   private showText(data) {
@@ -93,7 +106,7 @@ export class ApiService {
     this.messageService.showCards(data.cards);
   }
 
-  private showHelp(data){
+  private showHelp(data) {
     this.messageService.showResponse(data.message);
     this.messageService.showHelps(data.helps);
   }
@@ -115,11 +128,12 @@ export class ApiService {
 
   private showInitErreur(data) {
     setTimeout(() => {
-      window.speechSynthesis.speak(
-        new SpeechSynthesisUtterance(
-          'J\'ai peur de ne pas avoir compris votre réponse.' +
-          'Veuillez répetey votre choix parmi les options valables') // Fix speak issue
-      );
+      const erreurSentence = new SpeechSynthesisUtterance(
+        'J\'ai peur de ne pas avoir compris votre réponse.' +
+        'Veuillez répetey votre choix parmi les options valables');
+      erreurSentence.onend = this.voiceService.startRecordingFromInit.bind(this.voiceService);
+
+      window.speechSynthesis.speak(erreurSentence);
 
       this.messageService.showResponse('J\'ai peur de ne pas avoir bien compris');
       this.messageService.showResponse('Veuillez répondre par une des propositions suivantes');

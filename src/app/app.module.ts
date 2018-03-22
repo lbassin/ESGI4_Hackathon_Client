@@ -16,6 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MessageService} from './message-service';
 import {ApiService} from './api.service';
 import { AdviceBackgroundComponent } from './advice-background/advice-background.component';
+import {VoiceService} from './voice.service';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AdviceBackgroundComponent } from './advice-background/advice-background
     SpeechRecognitionService,
     MessageService,
     ApiService,
+    VoiceService,
   ],
   entryComponents: [
     ResponseComponent,

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MessageService} from './message-service';
 import {ApiService} from './api.service';
 import {Router} from '@angular/router';
+import {VoiceService} from './voice.service';
 
 @Component({
   templateUrl: './bot.component.html',
@@ -13,7 +14,8 @@ export class BotComponent implements OnInit {
 
   constructor(private messageService: MessageService,
               private apiService: ApiService,
-              private router: Router) {
+              private router: Router,
+              private voiceService: VoiceService) {
   }
 
   ngOnInit(): void {
@@ -36,9 +38,9 @@ export class BotComponent implements OnInit {
 
     this.messageService.showResponse('Avant de pouvoir utiliser nos services, nous avons besoin de quelques informations à votre sujet');
 
-    window.speechSynthesis.speak(
-      new SpeechSynthesisUtterance('Quel est votre prénom ?')
-    );
+    const firstnameSentence = new SpeechSynthesisUtterance('Quel est votre prénom ?');
+    firstnameSentence.onend = this.voiceService.startRecordingFromInit.bind(this.voiceService);
+    window.speechSynthesis.speak(firstnameSentence);
 
     setTimeout(() => {
       this.messageService.showResponse('Quel est votre prénom ?');

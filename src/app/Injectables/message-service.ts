@@ -28,10 +28,10 @@ export class MessageService {
     responseObject.link = 'https://youtu.be/VJawYtS_MlE';
     this.add(responseObject);
   }
-  responseMoviesCards() {
+  responseNewsCards() {
     const responseObject =  {};
     responseObject.sendBy = 'bot';
-    responseObject.type = 'movie-cards';
+    responseObject.type = 'news-cards';
     responseObject.cards = [];
     responseObject.cards.push({
       name : 'Breaking Bad',
@@ -93,10 +93,9 @@ export class MessageService {
       window.setTimeout(this.responseMessage.bind(this), 1000);
       window.setTimeout(this.responseFilmCards.bind(this), 2000);
     }
-
-    if (message.sendBy === 'user' && message.textMessage === 'movie cards') {
+    if (message.sendBy === 'user' && message.textMessage === 'news cards') {
       window.setTimeout(this.responseMessage.bind(this), 1000);
-      window.setTimeout(this.responseMoviesCards.bind(this), 2000);
+      window.setTimeout(this.responseNewsCards.bind(this), 2000);
     }
     if (message.sendBy === 'user' && message.textMessage === 'video card') {
       window.setTimeout(this.responseMessage.bind(this), 1000);

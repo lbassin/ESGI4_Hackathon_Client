@@ -8,6 +8,7 @@ import { ChatMessageListComponent } from './chat-message-list/chat-message-list.
 import {MessageService} from './Injectables/message-service';
 import { ResponseBlockComponent } from './response-block/response-block.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AdviceBackgroundComponent } from './advice-background/advice-background.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ChatComponent,
     ChatMessageListComponent,
     ResponseBlockComponent,
+    AdviceBackgroundComponent,
   ],
   imports: [
     BrowserModule,

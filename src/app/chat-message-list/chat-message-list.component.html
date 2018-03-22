@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div *ngIf="message.sendBy == 'bot' && message.type === 'movie-cards'"  ngClass="cards-slider-container">
+    <div *ngIf="message.sendBy == 'bot' && message.type === 'news-cards'"  ngClass="cards-slider-container">
       <div ngClass="cards-slider uk-position-relative uk-visible-toggle uk-light" uk-slider="finite: true">
         <ul  ngClass="uk-slider-items">
           <li ngClass="card large" *ngFor="let card of message.cards">

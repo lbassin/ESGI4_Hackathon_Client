@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-response-block',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./response-block.component.scss']
 })
 export class ResponseBlockComponent implements OnInit {
+
+  @Input() bg: string;
 
   constructor() { }
 

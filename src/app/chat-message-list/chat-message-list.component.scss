@@ -59,7 +59,6 @@
 
 .messages-block{
   &::-webkit-scrollbar, &::-webkit-scrollbar-track, &::-webkit-scrollbar-thumb {
-    width: 1em;
     border-radius: 10px;
     width: 5px;
     right: 5px;
@@ -67,19 +66,20 @@
     position: absolute;
     display: block;
     z-index: 10;
+    display: none;
   }
 
   &::-webkit-scrollbar-track{
-    background: rgba(255,255,255,0.3);
-    width: 0;
+    width: 5px;
+    background: transparent;
   }
   &::-webkit-scrollbar-button {
-    width: 0;
-    height: 0;
-    display: none;
+    background: rgba(255,255,255,0.3);
+    width: 5px;
   }
   &::-webkit-scrollbar-thumb{
-    width: 5px;
+    width: 0;
+
   }
 
   > * {
@@ -136,6 +136,32 @@
   div{
     .cards-slider-container{
       transition: all ease 0.5s;
+    }
+    .help-card {
+      font-size: 14px;
+      border-radius: 16px;
+      .help-title{
+        margin: 15px 10px 0;
+        display: inline-block;
+        font-weight: 600;
+      }
+      .help-desc{
+        display: inline-block;
+        margin: 15px 10px 0;
+        font-weight: 300;
+      }
+      .help-button{
+        position: absolute;
+        bottom: 5px;
+        width: 95%;
+        margin-left: 2.5%;
+        height: 30px;
+        background: #ff6600;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 14px;
+        border: none;
+      }
     }
     .cards-slider{
       width: 100%;

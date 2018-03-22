@@ -50,7 +50,6 @@ export class ApiService {
         this.displayResponse(response);
       })
       .catch((response) => {
-        console.log(response);
         setTimeout(() => {
           this.messageService.showResponse('Je suis désolé... Je n\'arrive pas à joindre mes informateurs');
         }, 750);
@@ -108,8 +107,15 @@ export class ApiService {
 
   private showInitErreur(data) {
     setTimeout(() => {
+      window.speechSynthesis.speak(
+        new SpeechSynthesisUtterance(
+          'J\'ai peur de ne pas avoir compris votre réponse.' +
+          'Veuillez répetey votre choix parmi les options valables') // Fix speak issue
+      );
+
       this.messageService.showResponse('J\'ai peur de ne pas avoir bien compris');
       this.messageService.showResponse('Veuillez répondre par une des propositions suivantes');
+
       let options = '';
       for (const index in data.data.options) {
         if (!data.data.options.hasOwnProperty(index)) {

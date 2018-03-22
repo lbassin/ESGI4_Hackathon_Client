@@ -30,7 +30,15 @@ export class BotComponent implements OnInit {
   private startSetup() {
     this.apiService.setUrlToInit();
     this.messageService.showResponse('Bonjour et bienvenue sur Djingo ! :)');
+    window.speechSynthesis.speak(
+      new SpeechSynthesisUtterance('Bonjour !. Bienvenue sur Djingo !. Avant de commencer, nous avons quelques question à vous poser')
+    );
+
     this.messageService.showResponse('Avant de pouvoir utiliser nos services, nous avons besoin de quelques informations à votre sujet');
+
+    window.speechSynthesis.speak(
+      new SpeechSynthesisUtterance('Quel est votre prénom ?')
+    );
 
     setTimeout(() => {
       this.messageService.showResponse('Quel est votre prénom ?');

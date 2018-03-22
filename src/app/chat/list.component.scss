@@ -117,7 +117,7 @@
       clear:right;
       float:right;
       right: 0;
-
+      margin-right: 10px;
     }
     &.received{
       background: #343434;
@@ -125,6 +125,7 @@
       clear:left;
       float:left;
       left: 0;
+      margin-left: 10px;
     }
     p{
       margin: 0;

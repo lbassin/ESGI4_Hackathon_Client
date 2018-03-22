@@ -15,6 +15,8 @@ import {ResponseBlockComponent} from './response-block/response-block.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MessageService} from './message-service';
 import {ApiService} from './api.service';
+import { AdviceBackgroundComponent } from './advice-background/advice-background.component';
+
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -33,6 +35,7 @@ import {ApiService} from './api.service';
     ChatComponent,
     ChatMessageListComponent,
     ResponseBlockComponent,
+    AdviceBackgroundComponent,
   ],
   providers: [
     ComponentService,

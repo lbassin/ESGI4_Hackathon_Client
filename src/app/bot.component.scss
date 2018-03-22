@@ -15,11 +15,14 @@
   top: 0;
   background: #1D1D1D;
   height: 100%;
+  box-shadow: 0 -2px 5px 1px rgba(0, 0, 0, 0.8);
 }
 
 app-response-block {
   width: calc(100% - 500px);
-  height: 100%;
+  height: 100vh;
+  display: block;
+  position: relative;
 }
 
 app-chat-list {

@@ -12,6 +12,8 @@ import {
 } from '@angular/core';
 import {MessageService} from '../message-service';
 import {DetailsService} from '../details.service';
+import {Router} from '@angular/router';
+import {HelpService} from '../help.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -42,10 +44,13 @@ import {DetailsService} from '../details.service';
 export class ChatMessageListComponent implements OnInit {
   messages: Array<Object>;
   iframeHeight = 250;
+  user = '';
 
   constructor(private _messageService: MessageService,
               private elementRef: ElementRef,
-              private detailsService: DetailsService) {
+              private detailsService: DetailsService,
+              private router: Router,
+              private helpServier: HelpService) {
     this._messageService = _messageService;
     this.messages = [];
   }
@@ -77,6 +82,14 @@ export class ChatMessageListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.router.routerState.snapshot.url;
+    if (this.user[0] === '/') {
+      this.user = this.user.slice(1);
+    }
+    if (this.user[0]) {
+      this.user = this.user[0].toUpperCase() + this.user.slice(1);
+    }
+
     this._messageService.messageUpdater.subscribe(
       (message) => {
         this.messages = this._messageService.getMessages();
@@ -90,4 +103,8 @@ export class ChatMessageListComponent implements OnInit {
     );
   }
 
+
+  protected displayHelp() {
+    this.helpServier.displayHelp();
+  }
 }

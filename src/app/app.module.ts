@@ -19,6 +19,7 @@ import {AdviceBackgroundComponent} from './advice-background/advice-background.c
 import {VoiceService} from './voice.service';
 import {FicheMediaComponent} from './fiche-media/fiche-media.component';
 import {DetailsService} from './details.service';
+import {HelpService} from './help.service';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {DetailsService} from './details.service';
     ApiService,
     VoiceService,
     DetailsService,
+    HelpService,
   ],
   entryComponents: [
     ResponseComponent,
